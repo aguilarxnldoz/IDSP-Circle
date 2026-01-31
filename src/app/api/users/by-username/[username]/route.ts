@@ -4,10 +4,10 @@ import { auth } from '@/auth';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
   try {
-    const username = params.username;
+    const { username } = await params;
     const session = await auth();
     const currentUserId = session?.user?.id ? parseInt(session.user.id as string) : null;
 
