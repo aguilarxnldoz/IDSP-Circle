@@ -1,4 +1,4 @@
-import { PrismaClient } from '@/generated/prisma/edge';
+import { PrismaClient } from '@/generated/prisma';
 import { withAccelerate } from '@prisma/extension-accelerate';
 
 // PrismaClient is attached to the `global` object in development to prevent
@@ -6,12 +6,13 @@ import { withAccelerate } from '@prisma/extension-accelerate';
 // Learn more: https://pris.ly/d/help/next-js-best-practices
 
 const createPrismaClient = () => {
-	// Create a base Prisma client with Accelerate URL for edge runtime
+	// Create a base Prisma client with Accelerate URL for Prisma 7
+	// Note: accelerateUrl is passed directly to constructor, not in datasourceUrl
 	const prismaBase = new PrismaClient({
 		accelerateUrl: process.env.DATABASE_URL,
 	});
 
-	// Finally, extend with Accelerate after applying middleware
+	// Extend with Accelerate for connection pooling
 	return prismaBase.$extends(withAccelerate());
 };
 

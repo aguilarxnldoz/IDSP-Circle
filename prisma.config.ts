@@ -8,6 +8,8 @@ export default defineConfig({
 		seed: 'npx tsx prisma/seed.ts',
 	},
 	datasource: {
-		url: env('DATABASE_URL'),
+		// Use DIRECT_DATABASE_URL for migrations (direct PostgreSQL connection)
+		// Falls back to DATABASE_URL if DIRECT_DATABASE_URL is not set
+		url: env('DIRECT_DATABASE_URL') || env('DATABASE_URL'),
 	},
 });
