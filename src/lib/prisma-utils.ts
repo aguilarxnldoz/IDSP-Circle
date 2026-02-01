@@ -1,5 +1,5 @@
 import prisma from './prisma';
-import { Prisma } from '@/generated/prisma/edge';
+import { Prisma } from '@/generated/prisma';
 
 /**
  * Utility class for optimizing prisma queries
